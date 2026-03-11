@@ -1,0 +1,20 @@
+services:
+  backend:
+    build: 
+      context: "./LLM React Project"
+    ports:
+      - "8000:8000"
+    # --- ΠΡΟΣΘΕΣΕ ΑΥΤΕΣ ΤΙΣ ΔΥΟ ΓΡΑΜΜΕΣ ---
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    # --------------------------------------
+    env_file:
+      - .env
+
+  frontend:
+    build: 
+      context: "./frontend"
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend

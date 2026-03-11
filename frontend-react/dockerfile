@@ -1,0 +1,21 @@
+# 1. Χρησιμοποιούμε Node.js image
+FROM node:20-slim
+
+# 2. Ορίζουμε τον φάκελο εργασίας
+WORKDIR /app
+
+# 3. Αντιγράφουμε τα αρχεία των εξαρτήσεων (package.json)
+COPY package*.json ./
+
+# 4. Εγκαθιστούμε τις βιβλιοθήκες (npm install)
+RUN npm install
+
+# 5. Αντιγράφουμε όλο τον κώδικα του Frontend
+COPY . .
+
+# 6. Ανοίγουμε την πόρτα 5173 (η default του Vite)
+EXPOSE 5173
+
+# 7. Ξεκινάμε τον development server
+# Το --host είναι ΑΠΑΡΑΙΤΗΤΟ για να "ακούει" το Docker έξω από το container
+CMD ["npm", "run", "dev", "--", "--host"]

@@ -1,0 +1,31 @@
+<div class="main-wrapper">
+  <div class="chat-container">
+    <div class="chat-header">
+      <h2>Capco AI <small>(Angular v19)</small></h2>
+      <select [(ngModel)]="model">
+        <option value="GPT">GPT-4</option>
+        <option value="LLAMA">Llama 3</option>
+      </select>
+    </div>
+
+    <div class="chat-body">
+      @for (msg of chatHistory; track $index) {
+        <div [class]="'bubble ' + msg.role">
+          <strong>{{ msg.role === 'user' ? 'You' : 'CapcoAI' }}:</strong>
+          <p>{{ msg.content }}</p>
+        </div>
+      }
+      @if (streamingMsg) {
+        <div class="bubble assistant streaming">
+          <strong>CapcoAI:</strong>
+          <p>{{ streamingMsg }}<span class="cursor">|</span></p>
+        </div>
+      }
+    </div>
+
+    <div class="chat-input">
+      <input [(ngModel)]="userInput" (keyup.enter)="handleSend()" placeholder="Ask anything...">
+      <button (click)="handleSend()" [disabled]="loading">Send</button>
+    </div>
+  </div>
+</div>
