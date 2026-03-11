@@ -1,0 +1,20 @@
+# 1. Ξεκινάμε με ένα έτοιμο image που έχει Python
+FROM python:3.11-slim
+
+# 2. Ορίζουμε τον φάκελο εργασίας μέσα στο container
+WORKDIR /my_backend
+
+# 3. Αντιγράφουμε τη λίστα με τις βιβλιοθήκες
+COPY requirements.txt .
+
+# 4. Τις εγκαθιστούμε
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 5. Αντιγράφουμε όλο τον κώδικα της Python μέσα στο container
+COPY . .
+
+# 6. Ανοίγουμε την "πόρτα" 7860 που ειναι του gradio
+EXPOSE 7860
+
+# 7. Η εντολή για να ξεκινήσει ο server
+CMD ["python", "llm_project.py"]
