@@ -1,21 +1,15 @@
-# 1. Χρησιμοποιούμε Node.js image
-FROM node:20-slim
-
-# 2. Ορίζουμε τον φάκελο εργασίας
+# Stage 1: Build
+FROM node:20-alpine AS build-step
 WORKDIR /app
-
-# 3. Αντιγράφουμε τα αρχεία των εξαρτήσεων (package.json)
 COPY package*.json ./
-
-# 4. Εγκαθιστούμε τις βιβλιοθήκες (npm install)
 RUN npm install
-
-# 5. Αντιγράφουμε όλο τον κώδικα του Frontend
 COPY . .
+RUN npm run build
 
-# 6. Ανοίγουμε την πόρτα 5173 (η default του Vite)
-EXPOSE 5173
-
-# 7. Ξεκινάμε τον development server
-# Το --host είναι ΑΠΑΡΑΙΤΗΤΟ για να "ακούει" το Docker έξω από το container
-CMD ["npm", "run", "dev", "--", "--host"]
+# Stage 2: Serve
+FROM nginx:alpine
+# ΠΡΟΣΟΧΗ: Το Vite βγάζει τα αρχεία στο /app/dist 
+# Αν χρησιμοποιείς παλιό Create React App, άλλαξε το σε /app/build
+COPY --from=build-step /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

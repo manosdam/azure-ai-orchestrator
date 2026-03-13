@@ -48,7 +48,7 @@ function App() {
     setStreamingMsg("");
 
     try {
-      const response = await fetch("http://localhost:8000/chat", {
+      const response = await fetch("http://localhost:5698/chat", {
         method: "POST",
         body: JSON.stringify({
           message: input,
@@ -81,7 +81,7 @@ function App() {
     <div style={{ minHeight: "100vh", background: DARK_THEME.background, color: DARK_THEME.text, display: "flex", flexDirection: "column", alignItems: "center", padding: "20px" }}>
       <div style={{ background: DARK_THEME.card, borderRadius: "15px", width: "100%", maxWidth: "600px", border: `1px solid ${DARK_THEME.border}`, overflow: "hidden" }}>
         <div style={{ padding: "20px", background: DARK_THEME.accentLight, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h2 style={{ color: DARK_THEME.accent, margin: 0 }}>Capco PrivateGPT</h2>
+          <h2 style={{ color: DARK_THEME.accent, margin: 0 }}>Manos PrivateLLMchat</h2>
           <select value={model} onChange={(e) => setModel(e.target.value)} style={{ background: DARK_THEME.background, color: "#fff", padding: "5px", borderRadius: "5px" }}>
             {MODEL_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
           </select>

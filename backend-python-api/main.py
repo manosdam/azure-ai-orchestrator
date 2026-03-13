@@ -12,7 +12,8 @@ app = FastAPI()
 # Αυτό είναι το "διαβατήριο" για να μιλήσει η Angular με την Python
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4200", "http://localhost:5173", "http://127.0.0.1:4200"], 
+    allow_origins=["*"],
+    #allow_origins=["http://localhost:8080", "http://localhost:8081"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -74,4 +75,4 @@ async def chat(request: ChatRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=5698)

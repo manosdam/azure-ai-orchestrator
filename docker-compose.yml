@@ -1,20 +1,24 @@
 services:
-  backend:
-    build: 
-      context: "./LLM React Project"
+  # ---------------------------------------------------------
+  # BACKEND: Το FastAPI API σου
+  # ---------------------------------------------------------
+  backend-api:
+    build: ./backend-python-api
+    container_name: my-python-api-container
     ports:
-      - "8000:8000"
-    # --- ΠΡΟΣΘΕΣΕ ΑΥΤΕΣ ΤΙΣ ΔΥΟ ΓΡΑΜΜΕΣ ---
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    # --------------------------------------
+      - "5698:5698"
     env_file:
       - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
 
-  frontend:
-    build: 
-      context: "./frontend"
+  # ---------------------------------------------------------
+  # FRONTEND: Η React εφαρμογή σου
+  # ---------------------------------------------------------
+  frontend-app:
+    build: ./frontend-react
+    container_name: my-react-container
     ports:
-      - "5173:5173"
-    depends_on:
-      - backend
+      - "8081:80"  # Αν η React τρέχει στην 80 μέσα στο container
+    restart: always

@@ -22,7 +22,7 @@ def chat_function(message, history, model_choice):
         model_name = "llama3.2:latest"
     else:
         client = openai_gpt
-        model_name = "gpt-4o"
+        model_name = "gpt-4o-mini"
 
     # Προετοιμασία μηνυμάτων με το system message
     messages = [{"role": "system", "content": system_message}]
