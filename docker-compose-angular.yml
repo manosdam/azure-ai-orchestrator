@@ -14,11 +14,13 @@ services:
     restart: always
 
   # ---------------------------------------------------------
-  # FRONTEND: Η React εφαρμογή σου
+  # FRONTEND: Η Angular εφαρμογή σου
   # ---------------------------------------------------------
-  frontend-app:
-    build: ./frontend-react
-    container_name: my-react-container
-    ports:
-      - "8081:80"  # Αν η React τρέχει στην 80 μέσα στο container
-    restart: always
+  frontend-angular:
+      build: ./frontend-angular
+      container_name: angular-container
+      ports:
+        - "80:80"  # Την βλέπεις στο localhost:90
+      depends_on:
+        - backend-api
+      restart: always

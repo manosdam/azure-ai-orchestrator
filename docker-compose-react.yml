@@ -1,0 +1,24 @@
+services:
+  # ---------------------------------------------------------
+  # BACKEND: Το FastAPI API σου
+  # ---------------------------------------------------------
+  backend-api:
+    build: ./backend-python-api
+    container_name: my-python-api-container
+    ports:
+      - "5698:5698"
+    env_file:
+      - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+
+  # ---------------------------------------------------------
+  # FRONTEND: Η React εφαρμογή σου
+  # ---------------------------------------------------------
+  frontend-app:
+    build: ./frontend-react
+    container_name: my-react-container
+    ports:
+      - "80:80"  # Αν η React τρέχει στην 80 μέσα στο container
+    restart: always

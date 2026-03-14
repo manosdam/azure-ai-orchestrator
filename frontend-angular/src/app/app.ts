@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core'; // 1. Εισαγωγή signal
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -6,14 +6,16 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './app.html',      // <--- Πρέπει να γράφει app.html
+  templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class AppComponent {
-  model = 'GPT';
+  model = 'LLAMA';
   userInput = '';
   chatHistory: any[] = [{ role: 'assistant', content: 'Hi! How can I assist you today?' }];
-  streamingMsg = '';
+  // ΕΔΩ ΤΟ ΟΡΙΖΕΙΣ:
+  streamingMsg = signal<string>('');
+
   loading = false;
 
   async handleSend() {
@@ -26,7 +28,7 @@ export class AppComponent {
     this.loading = true;
 
     try {
-      const response = await fetch('http://localhost:8000/chat', {
+      const response = await fetch('http://localhost:5698/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -45,13 +47,15 @@ export class AppComponent {
         if (done) break;
         const chunk = decoder.decode(value);
         aiMsg += chunk;
-        this.streamingMsg = aiMsg;
+
+        // 3. Ενημερώνουμε το signal. Αυτό κάνει "καμπανάκι" στην Angular να κάνει refresh
+        this.streamingMsg.set(aiMsg); 
       }
 
       this.chatHistory.push({ role: 'assistant', content: aiMsg });
-      this.streamingMsg = '';
+      this.streamingMsg.set(''); // Καθαρισμός signal
     } catch (err) {
-      this.streamingMsg = 'Error connecting to server.';
+      this.streamingMsg.set('Error connecting to server.');
     } finally {
       this.loading = false;
     }
