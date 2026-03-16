@@ -1,0 +1,15 @@
+# Stage 1: Build
+FROM node:20-alpine AS build-step
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Stage 2: Serve
+FROM nginx:alpine
+# ΠΡΟΣΟΧΗ: Το Vite βγάζει τα αρχεία στο /app/dist 
+# Αν χρησιμοποιείς παλιό Create React App, άλλαξε το σε /app/build
+COPY --from=build-step /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

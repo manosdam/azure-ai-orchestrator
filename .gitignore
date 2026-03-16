@@ -1,0 +1,51 @@
+# --- Security & Secrets ---
+.env
+*.env
+
+# --- Python (Backend) ---
+__pycache__/
+*.py[cod]
+*$py.class
+build/
+dist/
+*.egg-info/
+.venv/
+venv/
+ENV/
+
+vector_db/
+node_modules/
+.DS_Store
+
+# --- React (Frontend) ---
+.eslintcache
+build/
+dist/
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Angular (Frontend) ---
+# Αγνοούμε τον τεράστιο φάκελο των βιβλιοθηκών
+node_modules/
+# Προσωρινά αρχεία build και cache της Angular
+.angular/
+dist/
+# Logs του NPM
+npm-debug.log*
+
+# --- IDEs & OS ---
+.vscode/
+.cursor/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Docker ---
+.dockerignore
+logs/
+*.log
+docker-compose.override.yml
+
+

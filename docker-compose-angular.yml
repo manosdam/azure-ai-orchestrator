@@ -1,0 +1,26 @@
+services:
+  # ---------------------------------------------------------
+  # BACKEND: Το FastAPI API σου
+  # ---------------------------------------------------------
+  backend-api:
+    build: ./backend-python-api
+    container_name: my-python-api-container
+    ports:
+      - "5698:5698"
+    env_file:
+      - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+
+  # ---------------------------------------------------------
+  # FRONTEND: Η Angular εφαρμογή σου
+  # ---------------------------------------------------------
+  frontend-angular:
+      build: ./frontend-angular
+      container_name: angular-container
+      ports:
+        - "80:80"  # Την βλέπεις στο localhost:90
+      depends_on:
+        - backend-api
+      restart: always
