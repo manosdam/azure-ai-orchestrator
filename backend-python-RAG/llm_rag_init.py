@@ -9,7 +9,6 @@ from langchain_chroma import Chroma
 
 
 MODEL = "gpt-5-nano"
-db_name = "vector_db"
 db_path = os.path.join("..", "vector_db")
 load_dotenv(override=True)
 openai_api_key = os.getenv("OPENAI_API_KEY")
@@ -44,4 +43,5 @@ if os.path.exists(db_path):
     vectorstore.delete_collection()
 
 vectorstore = Chroma.from_documents(documents= chunks, embedding= embeddings, persist_directory= db_path)
-print(f"Vectorstore created with {vectorstore._collection.count()} documents")
+#print(f"Vectorstore created with {vectorstore._collection.count()} documents")
+
