@@ -55,7 +55,7 @@ async def stream_chat(client, model_name, messages):
 @app.post("/chat")
 async def chat(request: ChatRequest):
     client = openai_gpt if request.model_choice == "GPT" else openai_llama
-    model_name = "gpt-4o" if request.model_choice == "GPT" else "llama3.2"
+    model_name = "gpt-5-nano" if request.model_choice == "GPT" else "llama3.2"
     messages = [{"role": "system", "content": system_message}]
     for msg in request.history:
         messages.append({"role": msg.role, "content": msg.content})

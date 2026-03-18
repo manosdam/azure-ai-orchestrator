@@ -18,4 +18,4 @@ COPY . .
 EXPOSE 5698
 
 # 7. Η εντολή για να ξεκινήσει το API
-CMD ["python", "main.py"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860"]

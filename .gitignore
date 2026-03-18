@@ -13,6 +13,10 @@ dist/
 venv/
 ENV/
 
+vector_db/
+node_modules/
+.DS_Store
+
 # --- React (Frontend) ---
 .eslintcache
 build/

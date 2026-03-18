@@ -48,7 +48,7 @@ function App() {
     setStreamingMsg("");
 
     try {
-      const response = await fetch("http://localhost:5698/chat", {
+      const response = await fetch("http://manos-api-server.westeurope.azurecontainer.io:5698/chat", {
         method: "POST",
         body: JSON.stringify({
           message: input,
