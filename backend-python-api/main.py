@@ -9,7 +9,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Αυτό είναι το "διαβατήριο" για να μιλήσει η Angular με την Python
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
