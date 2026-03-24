@@ -5,11 +5,10 @@ import os
 
 load_dotenv(override=True)
 
-# Σύνδεση για τοπικό Ollama (localhost) εφόσον δεν χρησιμοποιείς Docker
 OLLAMA_URL = os.getenv("OLLAMA_BASE_URL")
 
 openai_llama = OpenAI(api_key="ollama", base_url=OLLAMA_URL)
-openai_gpt = OpenAI() # Χρησιμοποιεί το OPENAI_API_KEY από το .env
+openai_gpt = OpenAI() 
 
 system_message = """
 You are an AI Assistant with the efficiency of a Senior Manager 
@@ -27,7 +26,6 @@ Your goal is 100 percent billable satisfaction!
 """
 
 def chat_function(message, history, model_choice):
-# Εκτύπωσε αυτό για να το βλέπουμε στο τερματικό του Docker
     print(f"Επιλεγμένο μοντέλο: {model_choice}") 
 
     if model_choice == "LLAMA":
@@ -37,10 +35,8 @@ def chat_function(message, history, model_choice):
         client = openai_gpt
         model_name = "gpt-5-nano"
 
-    # Προετοιμασία μηνυμάτων με το system message
     messages = [{"role": "system", "content": system_message}]
     
-    # Προσθήκη ιστορικού με έλεγχο τύπου για μέγιστη συμβατότητα
     for entry in history:
         if isinstance(entry, dict):
             messages.append(entry)
@@ -51,7 +47,6 @@ def chat_function(message, history, model_choice):
     messages.append({"role": "user", "content": message})
 
     try:
-        # Streaming απόκριση
         stream = client.chat.completions.create(
             model=model_name,
             messages=messages,
@@ -66,7 +61,6 @@ def chat_function(message, history, model_choice):
     except Exception as e:
         yield f"⚠️ Σφάλμα σύνδεσης: {str(e)}"
 
-# Setup του Interface χωρίς την παράμετρο 'type' για αποφυγή του TypeError
 view = gr.ChatInterface(
     fn=chat_function,
     additional_inputs=[
