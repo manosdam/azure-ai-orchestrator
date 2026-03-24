@@ -27,9 +27,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # --- Angular (Frontend) ---
-# Αγνοούμε τον τεράστιο φάκελο των βιβλιοθηκών
 node_modules/
-# Προσωρινά αρχεία build και cache της Angular
 .angular/
 dist/
 # Logs του NPM
