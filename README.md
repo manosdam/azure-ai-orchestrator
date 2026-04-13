@@ -5,7 +5,7 @@ A high-performance, enterprise-grade AI orchestration platform built with a **Mi
 ---
 
 ## 🔗 Live Demo
-🚀 **Explore the Application:** [http://private-gpt-frontend-manos.azurewebsites.net](http://private-gpt-frontend-manos.azurewebsites.net)
+🚀 **Explore the Application:** [https://private-gpt-frontend-manos.azurewebsites.net](http://private-gpt-frontend-manos.azurewebsites.net)
 
 ---
 
